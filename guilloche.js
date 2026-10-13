@@ -64,17 +64,6 @@
     visas.forEach(function (v) { v.classList.add('is-stamped'); });
   }
 
-  // Destination stamps and links land on the job list filtered by country.
-  var rows = document.querySelectorAll('.jobs__row[data-country]');
-  var chips = document.querySelectorAll('.jobs__filter button');
-  function filterJobs(country) {
-    rows.forEach(function (r) { r.hidden = country !== 'all' && r.getAttribute('data-country') !== country; });
-    chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c.getAttribute('data-filter') === country)); });
-  }
-  document.querySelectorAll('[data-filter]').forEach(function (el) {
-    el.addEventListener('click', function () { filterJobs(el.getAttribute('data-filter')); });
-  });
-
   // Mockup form: validates, never sends data anywhere.
   var form = document.querySelector('.offer');
   if (form) {

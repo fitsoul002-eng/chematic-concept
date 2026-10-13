@@ -188,15 +188,10 @@ mark { background: linear-gradient(transparent 58%, rgba(217, 180, 111, .55) 58%
 
 /* ---------- Jobs ---------- */
 .jobs { padding-block: 0 var(--sect); }
-.jobs__head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
-.note { font-size: 14px; color: var(--stamp); font-weight: 600; margin: -12px 0 18px; }
-.jobs__filter { display: flex; gap: 6px; margin-bottom: clamp(28px, 4vw, 48px); }
-.jobs__filter button { font: 600 14px/1 var(--sans); padding: 11px 18px; background: transparent; color: var(--navy); border: 1px solid rgba(14, 42, 63, .3); cursor: pointer; transition: background-color .25s var(--ease), color .25s var(--ease); }
-.jobs__filter button:hover { border-color: var(--navy); }
-.jobs__filter button[aria-pressed="true"] { background: var(--navy); color: var(--on-navy); border-color: var(--navy); }
+.note { font-size: 14px; color: var(--ink-soft); font-weight: 600; margin: -18px 0 22px; }
 .jobs__row[hidden] { display: none !important; }
 .jobs__table { border-top: 2px solid var(--navy); }
-.jobs__row { display: grid; grid-template-columns: 2.2fr 1.1fr 1.2fr 1.2fr 1fr 90px; gap: 16px; align-items: center; padding: 22px 8px; border-bottom: 1px solid rgba(14, 42, 63, .16); text-decoration: none; font-variant-numeric: tabular-nums; transition: background-color .3s var(--ease); }
+.jobs__row { display: grid; grid-template-columns: 1.5fr 2fr 2fr 80px; gap: 16px; align-items: center; padding: 22px 8px; border-bottom: 1px solid rgba(14, 42, 63, .16); text-decoration: none; font-variant-numeric: tabular-nums; transition: background-color .3s var(--ease); }
 .jobs__row--head { padding-block: 12px; font: 600 11px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft); }
 a.jobs__row:hover { background: rgba(180, 138, 74, .1); }
 .jobs__row strong { font: 600 1.3rem/1.2 var(--serif); color: var(--navy); }
@@ -304,9 +299,8 @@ a.jobs__row:hover { background: rgba(180, 138, 74, .1); }
   .jobs__row.jobs__row--head { display: none; }
   .jobs__row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; padding: 18px 4px; }
   .jobs__row strong { flex-basis: 100%; }
-  .jobs__row span:not(.jobs__go) { font-size: 14px; }
-  .jobs__row span:nth-of-type(3), .jobs__row span:nth-of-type(4) { display: none; }
-  .jobs__go { margin-left: auto; }
+  .jobs__row span:not(.jobs__go) { font-size: 14px; flex-basis: 100%; }
+  .jobs__go { margin-top: 4px; }
   .values__list div { grid-template-columns: 1fr; gap: 6px; }
   .back__lines li { grid-template-columns: 1fr; gap: 2px; }
   .offer { padding: 26px 20px; }
