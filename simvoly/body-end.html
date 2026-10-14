@@ -92,8 +92,8 @@
     // Move each Simvoly form widget into its slot in our layout (n-th form -> n-th slot).
     var slots = document.querySelectorAll('.cc [data-form-slot]');
     var forms = Array.prototype.filter.call(
-      document.querySelectorAll('.widget[data-type="FormWidget"], .widgetForm'),
-      function (w) { return !w.closest('.cc') && !(w.parentElement && w.parentElement.closest('.widgetForm')); }
+      document.querySelectorAll('.widget[data-type="FormWidget"]'),
+      function (w) { return !w.closest('.cc'); }
     );
     slots.forEach(function (slot, i) {
       var w = forms[i];

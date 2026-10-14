@@ -12,17 +12,20 @@
   --ink-press: linear-gradient(118deg, #000 62%, rgba(0, 0, 0, .88) 84%, rgba(0, 0, 0, .75));
 }
 
-/* ---------- Simvoly shell: hide the platform header/footer, let our blocks run edge to edge ---------- */
+/* ---------- Simvoly shell: hide the platform header/footer, let our blocks run edge to edge.
+   body.live-theme = the published site; the Simvoly editor keeps a static nav so its toolbar stays usable. ---------- */
 html, body { overflow-x: hidden; }
 body { margin: 0; }
 body { background: var(--paper) !important; }
 .main-header-wrapper, .mobile-header-shell, .page-footer, .scrollToTop { display: none !important; }
 .grid-row:has(.cc), .grid-row:has(.cc) .grid-content, .grid-row:has(.cc) .grid-column { padding: 0 !important; margin: 0 !important; max-width: none !important; }
+.grid-row:has(.cc) .grid-content, .grid-row:has(.cc) .grid-column { width: 100% !important; }
 .widget:has(> .code-widget-content > .cc), .code-widget-content:has(> .cc) { margin: 0 !important; padding: 0 !important; }
 .grid-row.cc-emptied { display: none !important; }
+body.live-theme .grid-content.grid-row-empty { display: none !important; }
 
 /* ---------- Base ---------- */
-.cc { position: relative; width: 100vw; margin-left: calc(50% - 50vw); background: var(--paper); color: var(--ink); font: 400 17px/1.65 var(--sans); -webkit-font-smoothing: antialiased; text-align: left; }
+.cc { position: relative; background: var(--paper); color: var(--ink); font: 400 17px/1.65 var(--sans); -webkit-font-smoothing: antialiased; text-align: left; }
 .cc *, .cc *::before, .cc *::after { box-sizing: border-box; }
 .cc img { display: block; max-width: 100%; height: auto; border: 0; }
 .cc a { color: inherit; }
@@ -60,8 +63,11 @@ body { background: var(--paper) !important; }
 .cc .link-gold:hover, .cc .link-navy:hover { gap: 16px; }
 
 /* ---------- Nav ---------- */
-.cc .nav-spacer { height: var(--navh); background: var(--navy-deep); }
-.cc .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: var(--navy-deep); border-bottom: 1px solid rgba(180, 138, 74, .35); color: var(--on-navy); }
+.cc .nav-spacer { display: none; height: var(--navh); background: var(--navy-deep); }
+body.live-theme .cc { width: 100vw; margin-left: calc(50% - 50vw); }
+body.live-theme .cc .nav-spacer { display: block; }
+body.live-theme .cc .nav { position: fixed; top: 0; left: 0; right: 0; }
+.cc .nav { position: relative; z-index: 1000; background: var(--navy-deep); border-bottom: 1px solid rgba(180, 138, 74, .35); color: var(--on-navy); }
 .cc .nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: var(--navh); }
 .cc .lockup { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--on-navy); }
 .cc .seal { width: 42px; height: 42px; fill: none; stroke: var(--gold); stroke-width: .8; flex: none; }
@@ -256,19 +262,26 @@ body { background: var(--paper) !important; }
 .cc [data-form-slot] { margin-top: 18px; }
 .cc [data-form-slot]:empty::before { content: "Formularul se încarcă…"; display: block; padding: 18px 0; color: var(--ink-soft); font-size: 14px; }
 
-/* Simvoly native form, restyled. Applies inside our card and in its own block as a fallback. */
-.cc [data-form-slot] .widget, .grid-row .widgetForm { margin: 0 !important; width: 100% !important; }
-.cc [data-form-slot] form, .widgetForm form { font-family: var(--sans) !important; }
-.cc [data-form-slot] label, .widgetForm label { font: 600 11px/1.3 var(--sans) !important; letter-spacing: .18em !important; text-transform: uppercase !important; color: var(--ink-soft) !important; }
-.cc [data-form-slot] input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), .cc [data-form-slot] textarea, .cc [data-form-slot] select,
-.widgetForm input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), .widgetForm textarea, .widgetForm select {
-  font: 500 16px/1.4 var(--sans) !important; color: var(--ink) !important; background: #FBF9F4 !important; border: 1px solid rgba(14, 42, 63, .25) !important; border-radius: 0 !important; box-shadow: none !important; padding: 12px 14px !important; min-height: 48px; caret-color: var(--gold);
+/* Simvoly native form (.formWidget), restyled. Applies inside our card and, as a fallback, in its own block. */
+.cc [data-form-slot] .widget { margin: 0 !important; width: 100% !important; float: none !important; }
+.formWidget .widget-form, .formWidget .widget-form-inner-wrapper { font-family: var(--sans) !important; background: transparent !important; padding: 0 !important; }
+.formWidget .form-field { margin: 0 0 16px !important; padding: 0 !important; width: 100% !important; }
+.formWidget .form-field .title { display: block !important; margin-bottom: 7px !important; font: 600 11px/1.3 var(--sans) !important; letter-spacing: .18em !important; text-transform: uppercase !important; color: var(--ink-soft) !important; }
+.formWidget .form-field .required { color: var(--gold-ink) !important; margin-left: 3px; }
+.formWidget .form-field .field-error { font: 600 12px/1.3 var(--sans) !important; color: var(--stamp) !important; }
+.formWidget input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]), .formWidget textarea, .formWidget select {
+  width: 100% !important; font: 500 16px/1.4 var(--sans) !important; color: var(--ink) !important; background: #FBF9F4 !important; border: 1px solid rgba(14, 42, 63, .25) !important; border-radius: 0 !important; box-shadow: none !important; padding: 12px 14px !important; min-height: 48px; caret-color: var(--gold);
 }
-.cc [data-form-slot] input:focus, .cc [data-form-slot] textarea:focus, .cc [data-form-slot] select:focus, .widgetForm input:focus, .widgetForm textarea:focus, .widgetForm select:focus { outline: none !important; border-color: var(--navy) !important; box-shadow: 0 0 0 3px rgba(180, 138, 74, .3) !important; }
-.cc [data-form-slot] button, .cc [data-form-slot] [type="submit"], .cc [data-form-slot] .button, .widgetForm button, .widgetForm [type="submit"], .widgetForm .button {
-  width: 100% !important; min-height: 50px !important; background: var(--gold) !important; color: var(--navy-deep) !important; border: 0 !important; border-radius: 2px !important; font: 600 15px/1 var(--sans) !important; letter-spacing: .04em !important; text-transform: none !important; box-shadow: none !important; cursor: pointer; transition: background-color .3s var(--ease) !important;
+.formWidget textarea { min-height: 120px !important; resize: vertical; }
+.formWidget input::placeholder, .formWidget textarea::placeholder { color: #7A7E84 !important; }
+.formWidget input:focus, .formWidget textarea:focus, .formWidget select:focus { outline: none !important; border-color: var(--navy) !important; box-shadow: 0 0 0 3px rgba(180, 138, 74, .3) !important; }
+.formWidget .widget-form-button-wrapper { margin-top: 6px !important; text-align: left !important; }
+.formWidget [data-role="submit"], .formWidget button, .formWidget [type="submit"] {
+  display: flex !important; align-items: center; justify-content: center; width: 100% !important; min-height: 52px !important; padding: 0 24px !important; background: var(--gold) !important; color: var(--navy-deep) !important; border: 0 !important; border-radius: 2px !important; font: 600 15px/1 var(--sans) !important; letter-spacing: .04em !important; text-transform: none !important; box-shadow: none !important; cursor: pointer; transition: background-color .3s var(--ease) !important;
 }
-.cc [data-form-slot] button:hover, .cc [data-form-slot] [type="submit"]:hover, .cc [data-form-slot] .button:hover, .widgetForm button:hover, .widgetForm .button:hover { background: var(--gold-hi) !important; }
+.formWidget [data-role="submit"]:hover, .formWidget button:hover { background: var(--gold-hi) !important; }
+.formWidget .form-message, .formWidget .success-message, .formWidget [data-role="message"] { font: 500 16px/1.5 var(--sans) !important; color: var(--navy) !important; }
+body.live-theme .widget:has(> .code-widget-content > .cc) { width: 100% !important; float: none !important; }
 
 /* ---------- CTA band ---------- */
 .cc .cta { position: relative; overflow: hidden; background: var(--navy); color: var(--on-navy); padding-block: clamp(64px, 8vw, 110px); }
