@@ -1,0 +1,27 @@
+{
+  "acasa": {
+    "slug": "",
+    "title": "Chematic Com · Recrutare și plasare de personal în Belgia și România",
+    "form": false
+  },
+  "despre-noi": {
+    "slug": "despre-noi",
+    "title": "Despre noi · Chematic Com",
+    "form": false
+  },
+  "locuri-de-munca": {
+    "slug": "locuri-de-munca",
+    "title": "Locuri de muncă în Belgia și România · Chematic Com",
+    "form": true
+  },
+  "angajatori": {
+    "slug": "angajatori",
+    "title": "Pentru angajatori · Chematic Com",
+    "form": true
+  },
+  "contact": {
+    "slug": "contact",
+    "title": "Contact · Chematic Com",
+    "form": true
+  }
+}
