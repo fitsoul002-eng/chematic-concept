@@ -1,0 +1,53 @@
+<script>
+// CHEMATIC COM V2: mobile menu, sector filter, current page, Simvoly form placement.
+(function () {
+  if (/^\/me(\/|$)/.test(location.pathname)) return; // never run inside the Simvoly editor
+
+  function init() {
+    var root = document.querySelector('.v2');
+    if (!root) return;
+
+    var toggle = root.querySelector('.hamb'), menu = root.querySelector('.menu');
+    if (toggle && menu) {
+      toggle.addEventListener('click', function () {
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+      });
+      menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () { menu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); });
+      });
+    }
+
+    var here = location.pathname.replace(/\/+$/, '') || '/';
+    if (here === '/home') here = '/';
+    root.querySelectorAll('.menu a').forEach(function (a) {
+      if (a.getAttribute('href') === here) a.setAttribute('aria-current', 'page');
+    });
+
+    var filter = document.getElementById('filter');
+    if (filter) {
+      filter.addEventListener('change', function () {
+        root.querySelectorAll('[data-sector]').forEach(function (e) {
+          e.classList.toggle('hidden', filter.value !== 'all' && filter.value !== e.dataset.sector);
+        });
+      });
+    }
+
+    // Move the native Simvoly form into the contact column.
+    var slot = root.querySelector('[data-form-slot]');
+    var form = document.querySelector('.widget[data-type="FormWidget"]');
+    if (slot && form && !form.closest('.v2')) {
+      var row = form.closest('.grid-row');
+      slot.appendChild(form);
+      if (row && !row.querySelector('.widget')) row.classList.add('v2-emptied');
+      // "Cere o ofertă" links arrive with ?type=angajator: prefill who is writing.
+      var type = new URLSearchParams(location.search).get('type');
+      var who = form.querySelector('input[data-name*="andidat"], input[data-name*="ngajator"]');
+      if (who && type && !who.value) who.value = type === 'angajator' ? 'Angajator' : 'Candidat';
+    }
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
